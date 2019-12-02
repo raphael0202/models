@@ -752,8 +752,12 @@ def create_train_and_eval_specs(train_input_fn,
       exporter_name = final_exporter_name
     else:
       exporter_name = '{}_{}'.format(final_exporter_name, eval_spec_name)
-    exporter = tf.estimator.FinalExporter(
-        name=exporter_name, serving_input_receiver_fn=predict_input_fn)
+
+    exporter = tf.estimator.BestExporter(
+        name=exporter_name,
+        serving_input_receiver_fn=predict_input_fn,
+        exports_to_keep=5)
+
     eval_specs.append(
         tf.estimator.EvalSpec(
             name=eval_spec_name,
