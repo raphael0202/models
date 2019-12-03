@@ -756,6 +756,7 @@ def create_train_and_eval_specs(train_input_fn,
     exporter = tf.estimator.BestExporter(
         name=exporter_name,
         serving_input_receiver_fn=predict_input_fn,
+        event_file_pattern='eval_0/*.tfevents.*',
         exports_to_keep=5)
 
     eval_specs.append(
